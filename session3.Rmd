@@ -10,14 +10,22 @@ library(rtweet)
 library(tidyverse)
 library(rvest)
 ## authenticate via access token
-token <- create_token(
-  app = "yirlim",
-  consumer_key = "ASeHd6nyBEKnG4Gc4xwEh2rbh",
-  consumer_secret = "ASfh2qILbnn7EA1Oa6TeV4Fq7bZcDhtz4oYhygh31ne56yKf3l",
-  access_token = "1130762178586398720-7BHLvWsbx4O9Lt1DIyicljuJnxh9aF",
-  access_secret = "rPpLJfVLVYqJxUouJMuymbmH4DzoWnSIvIFMcr3O4oiZp")
+token <- create_token(app = "yirlim1",
+                      consumer_key = "pngiGfv6ZjWdrZ7wn2UJ4hMhq", 
+                      consumer_secret = "seMAJuQNkkRIorMUFqoch0qahlQI6IJh6PYuKwTd6pdL987bzo",
+                      access_token = "395154792-Dci9VtQohpbIO34wev3vaxxBlFZ9K82E5nhJSb42",
+                      access_secret = "mlUmQRTZpGHrCZOLQPDtrdyKzIjtRl1VES8C7Ps0GbODR")
 identical(token, get_token())
+search_tweets("#hashtag")
+D <- search_tweets("smart city", type = "popular", lang = "en")
+head(D)
+D1 <- D %>% select("created_at", "text", "favorite_count", "retweet_count")
+D1 %>% arrange(order(favorite_count))
+print(D1)
 ```
+
+
+
 
 ```{r}
 library(rvest)
@@ -38,5 +46,33 @@ p1 %>% html_nodes(".field__item") %>% html_text()
 ```{r}
 progrm_urls < p %>% html_nodes("li:first-of-type > a.list-item-link") %>% html_attr("href")
 
+```
+
+```{r}
+session <- html_session("https://www.indeed.nl/analytics-vacatures-in-Rotterdam")
+print(session)
+```
+
+```{r}
+results <- session %>% html_nodes(css = ".result")
+jk <- "cbcc5e1e23541663"
+results %>% html_nodes(xpath = paste0("//*[@*[contains(., \"", jk, "\")]]"))
+?html_nodes
+```
+
+```{r}
+p <- read_html("https://en.wikipedia.org/wiki/List_of_newspapers_in_the_Republic_of_Ireland")
+print(p)
+table <- p %>% html_node("table") %>% html_table()
+p %>%  html_node("table") %>% html_table()
+p %>% html_nodes("table") %>% html_table() %>% .[[1]]
+print(table)
+```
+
+```{r}
+p <- read_html("https://land.naver.com/article/divisionInfo.nhn?cortarNo=1165000000&rletNo=&rletTypeCd=A01&tradeTypeCd=&hscpTypeCd=A01%3AA03%3AA04&cpId=&location=&siteOrderCode=")
+print(p)
+title <- p %>% html_nodes(".sale_title") %>% html_attr("title")
+p %>% html_nodes("tr.evennum .inner") %>% html_attr("text")
 ```
 
