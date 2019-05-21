@@ -19,3 +19,24 @@ token <- create_token(
 identical(token, get_token())
 ```
 
+```{r}
+library(rvest)
+library(tidyverse)
+p <- read_html("https://www.eur.nl/en/about-eur/faculties-and-schools")
+print(p)
+```
+
+```{r}
+schools <- p %>% html_nodes(".field__item") %>% html_text()
+```
+
+```{r}
+p1 <- read_html("https://www.eur.nl/en/essb/research")
+print(p1)
+p1 %>% html_nodes(".field__item") %>% html_text()
+```
+```{r}
+progrm_urls < p %>% html_nodes("li:first-of-type > a.list-item-link") %>% html_attr("href")
+
+```
+
