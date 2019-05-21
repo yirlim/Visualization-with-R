@@ -1,0 +1,21 @@
+---
+title: "Session3"
+author: "Y. Lim"
+date: '2019 5 21 '
+output: html_document
+---
+
+```{r}
+library(rtweet)
+library(tidyverse)
+library(rvest)
+## authenticate via access token
+token <- create_token(
+  app = "yirlim",
+  consumer_key = "ASeHd6nyBEKnG4Gc4xwEh2rbh",
+  consumer_secret = "ASfh2qILbnn7EA1Oa6TeV4Fq7bZcDhtz4oYhygh31ne56yKf3l",
+  access_token = "1130762178586398720-7BHLvWsbx4O9Lt1DIyicljuJnxh9aF",
+  access_secret = "rPpLJfVLVYqJxUouJMuymbmH4DzoWnSIvIFMcr3O4oiZp")
+identical(token, get_token())
+```
+
